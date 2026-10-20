@@ -186,7 +186,12 @@ def test_settings_view_saves(admin_client, event):
 
     response = admin_client.post(
         url,
-        {"countdown__event_heading_0": "Soon!", "countdown__items": "on"},
+        {
+            "countdown__event_heading_0": "Soon!",
+            "countdown__items": "on",
+            "countdown__format": "compact",
+            "countdown__date_format": "long",
+        },
         follow=True,
     )
     assert response.status_code == 200
@@ -194,6 +199,8 @@ def test_settings_view_saves(admin_client, event):
     assert event.settings.countdown__event is False
     assert event.settings.countdown__items is True
     assert str(event.settings.countdown__event_heading) == "Soon!"
+    assert event.settings.countdown__format == "compact"
+    assert event.settings.countdown__date_format == "long"
 
 
 @pytest.mark.django_db

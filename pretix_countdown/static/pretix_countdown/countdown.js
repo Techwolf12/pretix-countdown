@@ -5,27 +5,86 @@
  * The ones inside the front page banner count down to the start of presale, all others
  * are products. pretix decides on its own server whether something can be bought, so
  * this is only a display: when a countdown reaches zero, the page reloads.
+ *
+ * Countdown templates are rendered like render_countdown() in formats.py. Keep the two
+ * in sync.
  */
 (function () {
     "use strict";
 
     var TS_PREFIX = "pretix-countdown-ts-";
+    var PLACEHOLDER = /\{(\w+)\}/g;
+    var OPTIONAL_PART = /\[([^\[\]]*)\]/g;
+    var NUMBERS = ["days", "hours", "minutes", "seconds", "hh", "mm", "ss"];
 
     function pad(n) {
         return n < 10 ? "0" + n : String(n);
     }
 
-    function formatRemaining(ms, labels) {
-        var total = Math.floor(ms / 1000);
-        var days = Math.floor(total / 86400);
-        var hours = Math.floor(total % 86400 / 3600);
-        var minutes = Math.floor(total % 3600 / 60);
-        var seconds = total % 60;
-        var time = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-        if (days > 0) {
-            return days + " " + (days === 1 ? labels.day : labels.days) + " " + time;
+    function uses(template, names) {
+        for (var i = 0; i < names.length; i++) {
+            if (template.indexOf("{" + names[i] + "}") !== -1) {
+                return true;
+            }
         }
-        return time;
+        return false;
+    }
+
+    function countdownParts(template, seconds, labels) {
+        var days = Math.floor(seconds / 86400);
+        var hours = Math.floor(seconds % 86400 / 3600);
+        var minutes = Math.floor(seconds % 3600 / 60);
+        var secs = seconds % 60;
+        // Units the template doesn't show are carried over into the next smaller one
+        if (!uses(template, ["days"])) {
+            hours += days * 24;
+            days = 0;
+        }
+        if (!uses(template, ["hours", "hh"])) {
+            minutes += hours * 60;
+            hours = 0;
+        }
+        if (!uses(template, ["minutes", "mm"])) {
+            secs += minutes * 60;
+            minutes = 0;
+        }
+        var parts = {
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            seconds: secs,
+            hh: pad(hours),
+            mm: pad(minutes),
+            ss: pad(secs),
+        };
+        ["days", "hours", "minutes", "seconds"].forEach(function (unit) {
+            var label = labels[unit + "_label"];
+            parts[unit + "_label"] = parts[unit] === 1 ? label[0] : label[1];
+        });
+        return parts;
+    }
+
+    function fill(text, values) {
+        return text.replace(PLACEHOLDER, function (match, name) {
+            return Object.prototype.hasOwnProperty.call(values, name) ? String(values[name]) : match;
+        });
+    }
+
+    function renderCountdown(template, seconds, labels) {
+        var parts = countdownParts(template, seconds, labels);
+        var text = template.replace(OPTIONAL_PART, function (match, inner) {
+            var names = [];
+            inner.replace(PLACEHOLDER, function (m, name) {
+                if (NUMBERS.indexOf(name) !== -1) {
+                    names.push(name);
+                }
+            });
+            var allZero = names.length > 0 && names.every(function (name) {
+                return parseInt(parts[name], 10) === 0;
+            });
+            return allZero ? "" : inner;
+        });
+        return fill(text, parts);
     }
 
     function targetTime(el) {
@@ -45,21 +104,23 @@
             return;
         }
         var config = JSON.parse(configEl.textContent);
-        var labels = config.labels;
         // Server time minus the visitor's clock, so a wrong local clock doesn't matter
         var offset = config.now - Date.now();
 
         var countdowns = [];
         var elements = document.querySelectorAll(".pretix-countdown");
         for (var i = 0; i < elements.length; i++) {
-            var target = targetTime(elements[i]);
+            var el = elements[i];
+            var target = targetTime(el);
             if (target === null) {
                 continue;
             }
+            var dateEl = el.querySelector(".pretix-countdown-date");
             countdowns.push({
-                el: elements[i],
+                el: el,
                 target: target,
-                isEvent: !!elements[i].closest(".pretix-countdown-banner"),
+                isEvent: !!el.closest(".pretix-countdown-banner"),
+                date: dateEl ? dateEl.textContent : "",
                 // Only reload for countdowns that run out while the page is open. If one
                 // has already passed on load, reloading would not change anything.
                 running: target > config.now,
@@ -78,14 +139,14 @@
                 if (!c.running) {
                     continue;
                 }
-                var remaining = c.target - now;
+                var remaining = Math.ceil((c.target - now) / 1000);
                 if (remaining > 0) {
-                    var text = formatRemaining(remaining, labels);
-                    c.el.textContent = c.isEvent ? text : labels.product.replace("{countdown}", text);
+                    var text = renderCountdown(config.format, remaining, config.labels);
+                    c.el.textContent = c.isEvent ? text : fill(config.product, {countdown: text, date: c.date});
                     continue;
                 }
                 c.running = false;
-                c.el.textContent = c.isEvent ? labels.event_open : labels.product_open;
+                c.el.textContent = c.isEvent ? config.event_open : config.product_open;
                 if (!reloading) {
                     reloading = true;
                     // Spread out reloads a little so not every visitor hits the shop at once

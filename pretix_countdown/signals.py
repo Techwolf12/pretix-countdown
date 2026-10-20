@@ -1,9 +1,7 @@
 from django.dispatch import receiver
 from django.template.loader import get_template
 from django.urls import resolve, reverse
-from django.utils.formats import date_format
 from django.utils.html import escape
-from django.utils.timezone import localtime
 from django.utils.translation import gettext, gettext_lazy as _
 from i18nfield.strings import LazyI18nString
 from pretix.base.models import Event
@@ -12,9 +10,16 @@ from pretix.base.timemachine import time_machine_now
 from pretix.control.signals import nav_event_settings
 from pretix.presale.signals import front_page_top, html_head, item_description
 
+from .formats import countdown_template, format_date, replace_placeholders, unit_labels
+
 settings_hierarkey.add_default("countdown__event", "True", bool)
 settings_hierarkey.add_default("countdown__event_heading", "", LazyI18nString)
 settings_hierarkey.add_default("countdown__items", "True", bool)
+settings_hierarkey.add_default("countdown__product_text", "", LazyI18nString)
+settings_hierarkey.add_default("countdown__format", "clock", str)
+settings_hierarkey.add_default("countdown__format_custom", "", LazyI18nString)
+settings_hierarkey.add_default("countdown__date_format", "short", str)
+settings_hierarkey.add_default("countdown__date_format_custom", "", str)
 
 # The countdown script finds its targets by class. The opening time is part of a class
 # name because pretix's markdown sanitizer strips data attributes from product
@@ -27,7 +32,25 @@ def countdown_classes(dt) -> str:
 
 
 def format_start(event: Event, dt) -> str:
-    return date_format(localtime(dt, event.timezone), "SHORT_DATETIME_FORMAT")
+    return format_date(
+        dt,
+        event.timezone,
+        event.settings.countdown__date_format,
+        event.settings.countdown__date_format_custom,
+    )
+
+
+def event_heading(event: Event) -> str:
+    return str(event.settings.countdown__event_heading or "") or gettext(
+        "Ticket sales open in"
+    )
+
+
+def product_text(event: Event) -> str:
+    # {countdown} is replaced with the remaining time, {date} with the opening date
+    return str(event.settings.countdown__product_text or "") or gettext(
+        "Available in {countdown}"
+    )
 
 
 def presale_start(event: Event, subevent=None):
@@ -77,14 +100,11 @@ def on_html_head(sender: Event, request, **kwargs):
     config = {
         # Lets the script correct for a visitor's clock being off
         "now": int(time_machine_now().timestamp() * 1000),
-        "labels": {
-            "day": gettext("day"),
-            "days": gettext("days"),
-            # {countdown} is replaced with the remaining time, e.g. "2 days 04:13:22"
-            "product": gettext("Available in {countdown}"),
-            "event_open": gettext("Ticket sales are open. Reloading…"),
-            "product_open": gettext("Available now. Reloading…"),
-        },
+        "format": countdown_template(sender.settings),
+        "product": product_text(sender),
+        "labels": unit_labels(),
+        "event_open": gettext("Ticket sales are open. Reloading…"),
+        "product_open": gettext("Available now. Reloading…"),
     }
     return template.render({"config": config})
 
@@ -99,12 +119,12 @@ def on_front_page_top(sender: Event, request, subevent=None, **kwargs):
     if not start:
         return ""
     template = get_template("pretix_countdown/banner.html")
-    heading = str(sender.settings.countdown__event_heading or "")
+    date = format_start(sender, start)
     return template.render(
         {
-            "heading": heading or gettext("Ticket sales open in"),
+            "heading": replace_placeholders(event_heading(sender), {"date": date}),
             "classes": countdown_classes(start),
-            "start": format_start(sender, start),
+            "start": date,
         }
     )
 
@@ -117,9 +137,13 @@ def on_item_description(sender: Event, item, variation=None, subevent=None, **kw
     if not start:
         return ""
     # pretix appends this to the description and renders it as markdown. Without
-    # JavaScript (e.g. in the widget) the date stays visible.
-    text = gettext("Available from {date}").format(date=format_start(sender, start))
-    return f'<span class="{countdown_classes(start)}">{escape(text)}</span>'
+    # JavaScript (e.g. in the widget) this text stays. The script reads the date from
+    # its own span to fill in {date} in the product text.
+    date = (
+        f'<span class="{CSS_CLASS}-date">{escape(format_start(sender, start))}</span>'
+    )
+    text = escape(gettext("Available from {date}")).replace("{date}", date)
+    return f'<span class="{countdown_classes(start)}">{text}</span>'
 
 
 @receiver(nav_event_settings, dispatch_uid="pretix_countdown_nav_event_settings")

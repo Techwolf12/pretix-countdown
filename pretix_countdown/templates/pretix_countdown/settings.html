@@ -13,11 +13,23 @@
     </p>
     <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
         {% csrf_token %}
+        {% bootstrap_form_errors form %}
         <fieldset>
-            {% bootstrap_form_errors form %}
+            <legend>{% trans "Start of ticket sales" %}</legend>
             {% bootstrap_field form.countdown__event layout="control" %}
             {% bootstrap_field form.countdown__event_heading layout="control" %}
+        </fieldset>
+        <fieldset>
+            <legend>{% trans "Products" %}</legend>
             {% bootstrap_field form.countdown__items layout="control" %}
+            {% bootstrap_field form.countdown__product_text layout="control" %}
+        </fieldset>
+        <fieldset>
+            <legend>{% trans "Format" %}</legend>
+            {% bootstrap_field form.countdown__format layout="control" %}
+            {% bootstrap_field form.countdown__format_custom layout="control" %}
+            {% bootstrap_field form.countdown__date_format layout="control" %}
+            {% bootstrap_field form.countdown__date_format_custom layout="control" %}
         </fieldset>
         <div class="form-group submit-group">
             <button type="submit" class="btn btn-primary btn-save">

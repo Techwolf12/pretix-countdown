@@ -16,8 +16,33 @@ reaches zero, the page reloads so visitors can buy right away. pretix itself sti
 bought, so the countdown can never open sales early. Without JavaScript, for example in the embedded widget, the
 opening date and time is shown instead.
 
-Configure it under *Settings → Countdown* in your event. You can turn both countdowns on or off and change the
-heading of the event countdown.
+Configure it under *Settings → Countdown* in your event. You can turn both countdowns on or off and change:
+
+* **Event heading**, default "Ticket sales open in". ``{date}`` is the date ticket sales open.
+* **Product text**, default "Available in {countdown}". ``{countdown}`` is the remaining time and ``{date}`` the
+  date the product goes on sale.
+* **Countdown format**, one of:
+
+  ============  ==========================================
+  Clock         2 days 04:13:22
+  Compact       2d 4h 13m 22s
+  Written out   2 days, 4 hours, 13 minutes, 22 seconds
+  Custom        your own template, see below
+  ============  ==========================================
+
+* **Date format** for ``{date}`` and for visitors without JavaScript: short, long, or a custom
+  `Django date format`_ such as ``l j F Y, H:i``.
+
+A custom countdown format can use these placeholders:
+
+* ``{days}``, ``{hours}``, ``{minutes}``, ``{seconds}``: the numbers.
+* ``{hh}``, ``{mm}``, ``{ss}``: hours, minutes and seconds padded to two digits.
+* ``{days_label}``, ``{hours_label}``, ``{minutes_label}``, ``{seconds_label}``: "day" or "days" etc., matching the
+  number.
+
+Text in square brackets is left out while all numbers in it are zero, so ``[{days} {days_label} ]{hh}:{mm}:{ss}``
+shows ``2 days 04:13:22`` and later ``04:13:22``. Units you leave out are added to the next smaller unit:
+``{hours}:{mm}:{ss}`` shows ``52:13:22`` with two days left.
 
 To install:
 ``pip3 install pretix-countdown && python3 -m pretix migrate && python3 -m pretix rebuild && service pretix-web restart``
@@ -72,3 +97,4 @@ Released under the terms of the Apache License 2.0
 
 .. _pretix: https://github.com/pretix/pretix
 .. _pretix development setup: https://docs.pretix.eu/en/latest/development/setup.html
+.. _Django date format: https://docs.djangoproject.com/en/stable/ref/templates/builtins/#date
