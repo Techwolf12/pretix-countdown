@@ -2,3 +2,4 @@
 package = "pretix-countdown"
 modules = [ "pretix_countdown" ]
 marketplace_name = "countdown"
+pypi = true

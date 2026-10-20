@@ -23,6 +23,13 @@ class PluginApp(PluginConfig):
         version = __version__
         category = "FEATURE"
         compatibility = "pretix>=2026.3.0"
+        settings_links = [
+            (
+                (gettext_lazy("Settings"), gettext_lazy("Countdown")),
+                "plugins:pretix_countdown:control.countdown.settings",
+                {},
+            ),
+        ]
 
     def ready(self):
         from . import signals  # NOQA
