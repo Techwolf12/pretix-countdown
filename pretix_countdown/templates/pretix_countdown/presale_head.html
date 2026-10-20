@@ -1,0 +1,4 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "pretix_countdown/countdown.css" %}">
+<script type="text/javascript" src="{% static "pretix_countdown/countdown.js" %}" defer></script>
+{{ config|json_script:"pretix-countdown-config" }}

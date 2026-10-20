@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master ]
+    paths-ignore:
+      - 'pretix_countdown/locale/**'
+  pull_request:
+    branches: [ main, master ]
+    paths-ignore:
+      - 'pretix_countdown/locale/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y gettext
+      - name: Install dependencies
+        run: pip install pretix pytest pytest-django -e .
+      - name: Compile translations
+        run: make
+      - name: Run tests
+        run: python -m pytest tests

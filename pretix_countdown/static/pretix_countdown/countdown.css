@@ -1,0 +1,15 @@
+.pretix-countdown-banner .pretix-countdown-heading {
+    margin-bottom: 0.25em;
+    font-size: 1.2em;
+}
+
+.pretix-countdown-banner .pretix-countdown-time {
+    margin: 0;
+    font-size: 2em;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.pretix-countdown {
+    font-variant-numeric: tabular-nums;
+}

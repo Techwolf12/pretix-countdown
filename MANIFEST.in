@@ -1,0 +1,5 @@
+recursive-include pretix_countdown/static *
+recursive-include pretix_countdown/templates *
+recursive-include pretix_countdown/locale *
+include LICENSE
+exclude .gitlab-ci.yml

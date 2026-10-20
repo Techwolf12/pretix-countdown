@@ -1,0 +1,42 @@
+[project]
+name = "pretix-countdown"
+dynamic = ["version"]
+description = "Shows a live countdown to the start of ticket sales and of individual products"
+readme = "README.rst"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["pretix"]
+authors = [
+    {name = "Christiaan de Die le Clercq (techwolf12)", email = "contact@techwolf12.nl"},
+]
+maintainers = [
+    {name = "Christiaan de Die le Clercq (techwolf12)", email = "contact@techwolf12.nl"},
+]
+
+dependencies = [
+]
+
+[project.entry-points."pretix.plugin"]
+pretix_countdown = "pretix_countdown:PretixPluginMeta"
+
+[project.entry-points."distutils.commands"]
+build = "pretix_plugin_build.build:CustomBuild"
+
+[build-system]
+requires = [
+    "setuptools>=77",
+    "pretix-plugin-build",
+]
+
+[project.urls]
+homepage = "https://github.com/Techwolf12/pretix-countdown"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "pretix_countdown.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["pretix*"]
+namespaces = false
