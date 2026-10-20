@@ -30,6 +30,7 @@ requires = [
 
 [project.urls]
 homepage = "https://github.com/Techwolf12/pretix-countdown"
+changelog = "https://github.com/Techwolf12/pretix-countdown/blob/main/CHANGELOG.rst"
 
 [tool.setuptools]
 include-package-data = true

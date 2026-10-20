@@ -2,4 +2,5 @@ recursive-include pretix_countdown/static *
 recursive-include pretix_countdown/templates *
 recursive-include pretix_countdown/locale *
 include LICENSE
+include CHANGELOG.rst
 exclude .gitlab-ci.yml
