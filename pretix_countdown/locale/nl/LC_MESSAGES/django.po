@@ -1,0 +1,289 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-20 21:00+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christiaan de Die le Clercq (techwolf12)\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: pretix_countdown/apps.py:16 pretix_countdown/apps.py:28
+#: pretix_countdown/signals.py:161
+msgid "Countdown"
+msgstr "Aftelklok"
+
+#: pretix_countdown/apps.py:19
+msgid ""
+"Shows a live countdown to the start of ticket sales and of individual "
+"products"
+msgstr ""
+"Toont een live aftelklok tot de start van de ticketverkoop en van "
+"afzonderlijke producten"
+
+#: pretix_countdown/apps.py:28
+msgid "Settings"
+msgstr "Instellingen"
+
+#: pretix_countdown/formats.py:27
+#, python-brace-format
+msgctxt "countdown format"
+msgid "[{days} {days_label} ]{hh}:{mm}:{ss}"
+msgstr "[{days} {days_label} ]{hh}:{mm}:{ss}"
+
+#: pretix_countdown/formats.py:28
+#, python-brace-format
+msgctxt "countdown format"
+msgid "[{days}d ]{hours}h {mm}m {ss}s"
+msgstr "[{days}d ]{hours}u {mm}m {ss}s"
+
+#: pretix_countdown/formats.py:31
+#, python-brace-format
+msgctxt "countdown format"
+msgid ""
+"[{days} {days_label}, ][{hours} {hours_label}, ][{minutes} {minutes_label}, ]"
+"{seconds} {seconds_label}"
+msgstr ""
+"[{days} {days_label}, ][{hours} {hours_label}, ][{minutes} {minutes_label}, "
+"]{seconds} {seconds_label}"
+
+#: pretix_countdown/formats.py:36
+msgid "Clock"
+msgstr "Klok"
+
+#: pretix_countdown/formats.py:37
+msgid "Compact"
+msgstr "Compact"
+
+#: pretix_countdown/formats.py:38
+msgid "Written out"
+msgstr "Uitgeschreven"
+
+#: pretix_countdown/formats.py:39 pretix_countdown/formats.py:49
+msgid "Custom"
+msgstr "Aangepast"
+
+#: pretix_countdown/formats.py:47
+msgid "Short"
+msgstr "Kort"
+
+#: pretix_countdown/formats.py:48
+msgid "Long"
+msgstr "Lang"
+
+#: pretix_countdown/formats.py:60
+msgid "day"
+msgstr "dag"
+
+#: pretix_countdown/formats.py:60
+msgid "days"
+msgstr "dagen"
+
+#: pretix_countdown/formats.py:61
+msgid "hour"
+msgstr "uur"
+
+#: pretix_countdown/formats.py:61
+msgid "hours"
+msgstr "uur"
+
+#: pretix_countdown/formats.py:62
+msgid "minute"
+msgstr "minuut"
+
+#: pretix_countdown/formats.py:62
+msgid "minutes"
+msgstr "minuten"
+
+#: pretix_countdown/formats.py:63
+msgid "second"
+msgstr "seconde"
+
+#: pretix_countdown/formats.py:63
+msgid "seconds"
+msgstr "seconden"
+
+#: pretix_countdown/signals.py:45
+msgid "Ticket sales open in"
+msgstr "De ticketverkoop start over"
+
+#: pretix_countdown/signals.py:52
+#, python-brace-format
+msgid "Available in {countdown}"
+msgstr "Beschikbaar over {countdown}"
+
+#: pretix_countdown/signals.py:106
+msgid "Ticket sales are open. Reloading…"
+msgstr "De ticketverkoop is gestart. Pagina wordt herladen…"
+
+#: pretix_countdown/signals.py:107
+msgid "Available now. Reloading…"
+msgstr "Nu beschikbaar. Pagina wordt herladen…"
+
+#: pretix_countdown/signals.py:145
+#, python-brace-format
+msgid "Available from {date}"
+msgstr "Beschikbaar vanaf {date}"
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:4
+#: pretix_countdown/templates/pretix_countdown/settings.html:6
+msgid "Countdown Settings"
+msgstr "Instellingen aftelklok"
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:8
+msgid ""
+"The countdown uses the start of presale and the \"Available from\" dates you "
+"already set for the event and its products. When a countdown reaches zero, "
+"the page reloads so visitors can buy right away."
+msgstr ""
+"De aftelklok gebruikt het begin van de voorverkoop en de „Beschikbaar "
+"vanaf”-datums die je al voor het evenement en de producten hebt ingesteld. "
+"Wanneer een aftelklok nul bereikt, wordt de pagina herladen zodat bezoekers "
+"meteen kunnen kopen."
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:18
+msgid "Start of ticket sales"
+msgstr "Start van de ticketverkoop"
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:23
+msgid "Products"
+msgstr "Producten"
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:28
+msgid "Format"
+msgstr "Notatie"
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:36
+msgid "Save"
+msgstr "Opslaan"
+
+#: pretix_countdown/views.py:42
+msgid "Show a countdown to the start of ticket sales"
+msgstr "Aftelklok tot de start van de ticketverkoop tonen"
+
+#: pretix_countdown/views.py:44
+msgid ""
+"Shown on the shop's front page until the start of presale that is set in the "
+"event settings. In an event series, each date counts down to its own presale "
+"start."
+msgstr ""
+"Wordt op de startpagina van de shop getoond tot het begin van de voorverkoop "
+"dat in de evenementinstellingen is ingesteld. In een evenementenreeks telt "
+"elke datum af tot het eigen begin van de voorverkoop."
+
+#: pretix_countdown/views.py:52
+msgid "Countdown heading"
+msgstr "Kop van de aftelklok"
+
+#: pretix_countdown/views.py:54
+#, python-brace-format
+msgid ""
+"Leave empty to use \"Ticket sales open in\". You can use {date} for the date "
+"and time ticket sales open."
+msgstr ""
+"Laat leeg om „De ticketverkoop start over” te gebruiken. Met {date} kun je "
+"de datum en tijd invoegen waarop de ticketverkoop start."
+
+#: pretix_countdown/views.py:60
+msgid "Show a countdown on products that are not available yet"
+msgstr "Aftelklok tonen bij producten die nog niet beschikbaar zijn"
+
+#: pretix_countdown/views.py:62
+msgid ""
+"Counts down to the \"Available from\" date of a product or variation. The "
+"product is only listed before that date if it is set to show info on why it "
+"is unavailable. Otherwise pretix hides it until then."
+msgstr ""
+"Telt af tot de „Beschikbaar vanaf”-datum van een product of variant. Het "
+"product wordt vóór die datum alleen getoond als is ingesteld dat de reden "
+"waarom het niet beschikbaar is wordt weergegeven. Anders verbergt pretix het "
+"tot dan."
+
+#: pretix_countdown/views.py:70
+msgid "Product text"
+msgstr "Producttekst"
+
+#: pretix_countdown/views.py:72
+#, python-brace-format
+msgid ""
+"Leave empty to use \"Available in {countdown}\". {countdown} is replaced "
+"with the remaining time and {date} with the date and time the product goes "
+"on sale."
+msgstr ""
+"Laat leeg om „Beschikbaar over {countdown}” te gebruiken. {countdown} wordt "
+"vervangen door de resterende tijd en {date} door de datum en tijd waarop de "
+"verkoop van het product start."
+
+#: pretix_countdown/views.py:80
+msgid "Countdown format"
+msgstr "Notatie aftelklok"
+
+#: pretix_countdown/views.py:85
+msgid "Custom countdown format"
+msgstr "Aangepaste notatie aftelklok"
+
+#: pretix_countdown/views.py:90
+msgid "Date format"
+msgstr "Datumnotatie"
+
+#: pretix_countdown/views.py:92
+#, python-brace-format
+msgid ""
+"Used for {date} and shown instead of the countdown when JavaScript is not "
+"available, e.g. in the embedded widget."
+msgstr ""
+"Wordt gebruikt voor {date} en getoond in plaats van de aftelklok als "
+"JavaScript niet beschikbaar is, bijv. in de ingesloten widget."
+
+#: pretix_countdown/views.py:98
+msgid "Custom date format"
+msgstr "Aangepaste datumnotatie"
+
+#: pretix_countdown/views.py:141
+#, python-brace-format
+msgid "Available placeholders: {placeholders}."
+msgstr "Beschikbare placeholders: {placeholders}."
+
+#: pretix_countdown/views.py:145
+#, python-brace-format
+msgid ""
+"{hh}, {mm} and {ss} are padded to two digits. {days_label} etc. become "
+"\"day\" or \"days\" to match the number. Text in square brackets is left out "
+"while all numbers in it are zero. Units you leave out are added to the next "
+"smaller unit. Example: {example}"
+msgstr ""
+"{hh}, {mm} en {ss} worden aangevuld tot twee cijfers. {days_label} enz. "
+"worden „dag” of „dagen”, passend bij het getal. Tekst tussen vierkante haken "
+"wordt weggelaten zolang alle getallen erin nul zijn. Eenheden die je "
+"weglaat, worden opgeteld bij de eerstvolgende kleinere eenheid. Voorbeeld: "
+"{example}"
+
+#: pretix_countdown/views.py:162
+msgid "Uses Django's date format characters."
+msgstr "Gebruikt de datumnotatietekens van Django."
+
+#: pretix_countdown/views.py:163
+msgid "Show all format characters"
+msgstr "Alle notatietekens tonen"
+
+#: pretix_countdown/views.py:177
+#, python-brace-format
+msgid "Unknown placeholder: {placeholders}. Available: {allowed}."
+msgstr "Onbekende placeholder: {placeholders}. Beschikbaar: {allowed}."
+
+#: pretix_countdown/views.py:195
+#, python-brace-format
+msgid "The product text needs to contain {countdown}."
+msgstr "De producttekst moet {countdown} bevatten."
+
+#: pretix_countdown/views.py:204 pretix_countdown/views.py:217
+msgid "Enter a format or choose one of the other formats."
+msgstr "Voer een notatie in of kies een van de andere notaties."
+
+#: pretix_countdown/views.py:209
+msgid "The format needs to contain at least one placeholder."
+msgstr "De notatie moet ten minste één placeholder bevatten."

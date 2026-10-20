@@ -1,0 +1,267 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-20 21:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: pretix_countdown/apps.py:16 pretix_countdown/apps.py:28
+#: pretix_countdown/signals.py:161
+msgid "Countdown"
+msgstr ""
+
+#: pretix_countdown/apps.py:19
+msgid ""
+"Shows a live countdown to the start of ticket sales and of individual "
+"products"
+msgstr ""
+
+#: pretix_countdown/apps.py:28
+msgid "Settings"
+msgstr ""
+
+#: pretix_countdown/formats.py:27
+#, python-brace-format
+msgctxt "countdown format"
+msgid "[{days} {days_label} ]{hh}:{mm}:{ss}"
+msgstr ""
+
+#: pretix_countdown/formats.py:28
+#, python-brace-format
+msgctxt "countdown format"
+msgid "[{days}d ]{hours}h {mm}m {ss}s"
+msgstr ""
+
+#: pretix_countdown/formats.py:31
+#, python-brace-format
+msgctxt "countdown format"
+msgid ""
+"[{days} {days_label}, ][{hours} {hours_label}, ][{minutes} {minutes_label}, ]"
+"{seconds} {seconds_label}"
+msgstr ""
+
+#: pretix_countdown/formats.py:36
+msgid "Clock"
+msgstr ""
+
+#: pretix_countdown/formats.py:37
+msgid "Compact"
+msgstr ""
+
+#: pretix_countdown/formats.py:38
+msgid "Written out"
+msgstr ""
+
+#: pretix_countdown/formats.py:39 pretix_countdown/formats.py:49
+msgid "Custom"
+msgstr ""
+
+#: pretix_countdown/formats.py:47
+msgid "Short"
+msgstr ""
+
+#: pretix_countdown/formats.py:48
+msgid "Long"
+msgstr ""
+
+#: pretix_countdown/formats.py:60
+msgid "day"
+msgstr ""
+
+#: pretix_countdown/formats.py:60
+msgid "days"
+msgstr ""
+
+#: pretix_countdown/formats.py:61
+msgid "hour"
+msgstr ""
+
+#: pretix_countdown/formats.py:61
+msgid "hours"
+msgstr ""
+
+#: pretix_countdown/formats.py:62
+msgid "minute"
+msgstr ""
+
+#: pretix_countdown/formats.py:62
+msgid "minutes"
+msgstr ""
+
+#: pretix_countdown/formats.py:63
+msgid "second"
+msgstr ""
+
+#: pretix_countdown/formats.py:63
+msgid "seconds"
+msgstr ""
+
+#: pretix_countdown/signals.py:45
+msgid "Ticket sales open in"
+msgstr ""
+
+#: pretix_countdown/signals.py:52
+#, python-brace-format
+msgid "Available in {countdown}"
+msgstr ""
+
+#: pretix_countdown/signals.py:106
+msgid "Ticket sales are open. Reloading…"
+msgstr ""
+
+#: pretix_countdown/signals.py:107
+msgid "Available now. Reloading…"
+msgstr ""
+
+#: pretix_countdown/signals.py:145
+#, python-brace-format
+msgid "Available from {date}"
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:4
+#: pretix_countdown/templates/pretix_countdown/settings.html:6
+msgid "Countdown Settings"
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:8
+msgid ""
+"The countdown uses the start of presale and the \"Available from\" dates you "
+"already set for the event and its products. When a countdown reaches zero, "
+"the page reloads so visitors can buy right away."
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:18
+msgid "Start of ticket sales"
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:23
+msgid "Products"
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:28
+msgid "Format"
+msgstr ""
+
+#: pretix_countdown/templates/pretix_countdown/settings.html:36
+msgid "Save"
+msgstr ""
+
+#: pretix_countdown/views.py:42
+msgid "Show a countdown to the start of ticket sales"
+msgstr ""
+
+#: pretix_countdown/views.py:44
+msgid ""
+"Shown on the shop's front page until the start of presale that is set in the "
+"event settings. In an event series, each date counts down to its own presale "
+"start."
+msgstr ""
+
+#: pretix_countdown/views.py:52
+msgid "Countdown heading"
+msgstr ""
+
+#: pretix_countdown/views.py:54
+#, python-brace-format
+msgid ""
+"Leave empty to use \"Ticket sales open in\". You can use {date} for the date "
+"and time ticket sales open."
+msgstr ""
+
+#: pretix_countdown/views.py:60
+msgid "Show a countdown on products that are not available yet"
+msgstr ""
+
+#: pretix_countdown/views.py:62
+msgid ""
+"Counts down to the \"Available from\" date of a product or variation. The "
+"product is only listed before that date if it is set to show info on why it "
+"is unavailable. Otherwise pretix hides it until then."
+msgstr ""
+
+#: pretix_countdown/views.py:70
+msgid "Product text"
+msgstr ""
+
+#: pretix_countdown/views.py:72
+#, python-brace-format
+msgid ""
+"Leave empty to use \"Available in {countdown}\". {countdown} is replaced "
+"with the remaining time and {date} with the date and time the product goes "
+"on sale."
+msgstr ""
+
+#: pretix_countdown/views.py:80
+msgid "Countdown format"
+msgstr ""
+
+#: pretix_countdown/views.py:85
+msgid "Custom countdown format"
+msgstr ""
+
+#: pretix_countdown/views.py:90
+msgid "Date format"
+msgstr ""
+
+#: pretix_countdown/views.py:92
+#, python-brace-format
+msgid ""
+"Used for {date} and shown instead of the countdown when JavaScript is not "
+"available, e.g. in the embedded widget."
+msgstr ""
+
+#: pretix_countdown/views.py:98
+msgid "Custom date format"
+msgstr ""
+
+#: pretix_countdown/views.py:141
+#, python-brace-format
+msgid "Available placeholders: {placeholders}."
+msgstr ""
+
+#: pretix_countdown/views.py:145
+#, python-brace-format
+msgid ""
+"{hh}, {mm} and {ss} are padded to two digits. {days_label} etc. become "
+"\"day\" or \"days\" to match the number. Text in square brackets is left out "
+"while all numbers in it are zero. Units you leave out are added to the next "
+"smaller unit. Example: {example}"
+msgstr ""
+
+#: pretix_countdown/views.py:162
+msgid "Uses Django's date format characters."
+msgstr ""
+
+#: pretix_countdown/views.py:163
+msgid "Show all format characters"
+msgstr ""
+
+#: pretix_countdown/views.py:177
+#, python-brace-format
+msgid "Unknown placeholder: {placeholders}. Available: {allowed}."
+msgstr ""
+
+#: pretix_countdown/views.py:195
+#, python-brace-format
+msgid "The product text needs to contain {countdown}."
+msgstr ""
+
+#: pretix_countdown/views.py:204 pretix_countdown/views.py:217
+msgid "Enter a format or choose one of the other formats."
+msgstr ""
+
+#: pretix_countdown/views.py:209
+msgid "The format needs to contain at least one placeholder."
+msgstr ""
